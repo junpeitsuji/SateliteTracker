@@ -1,0 +1,127 @@
+
+g++でコンパイルするために修正を加えた部分 
+
+
+- すべてのヘッダー, cppファイル
+最終行に改行コードを入れる
+
+
+- cEci.h
+Coord.h --> coord.h
+
+- cEci.cpp
+改行コードを入れる
+stdafx.hのtcharをコメントアウトする
+
+- cJulian.cpp
+40行目 
+gmtime_s(&stm, &time);
+==> gmtime_r(&time, &stm);
+
+gmtime_s は VC++用関数
+c.f. 
+http://msdn.microsoft.com/ja-jp/library/vstudio/3stkd9be.aspx
+http://linux.die.net/man/3/gmtime_r
+
+240行目
+_get_timezone
+? 変更方法わからず・・・
+==> とりあえず、消した
+
+- cSite.cpp
+変更なし
+
+- cTLE.cpp
+18行目 
+#include <cTle.h>
+==> #include <cTLE.h>
+
+
+- cVector.cpp
+変更なし
+
+
+- coord.cpp
+45行目
+_snprintf_s
+==> snprintf
+google "_snprintf_s"
+http://docwiki.embarcadero.com/RADStudio/XE3/ja/Snprintf_s%E3%80%81snwprintf_s
+
+- globals.cpp
+変更なし
+
+- stdafx.cpp
+変更なし
+
+- coreLib.h
+#include "Tle.h"
+==> #include "TLE.h"
+
+
+
+
+g++ -c cEci.cpp cJulian.cpp cSite.cpp cTLE.cpp cVector.cpp coord.cpp globals.cpp stdafx.cpp
+ar crv libobcore.a cEci.o cJulian.o cSite.o cTLE.o cVector.o coord.o globals.o stdafx.o
+rm *.o
+
+
+core内のヘッダファイルを全部コピーした
+
+
+- cNoradBase.cpp
+21行目
+#include "StdAfx.h"
+==> #include "stdafx.h"
+
+- stdafx.h
+#include <tchar.h> のコメントアウト
+
+- cOrder.h
+#include "Tle.h"
+==> #include "TLE.h"
+
+
+- cNoradSDP4.cpp
+#include "stdAfx.h"
+==> #include "stdafx.h"
+
+- cNoradSGP4.cpp
+変更なし
+
+- stdafx.cpp
+変更なし
+
+
+
+
+g++ -c cOrbit.cpp cNoradBase.cpp cNoradSDP4.cpp cNoradSGP4.cpp stdafx.cpp
+ar crv liboborbit.a cOrbit.o cNoradBase.o cNoradSDP4.o cNoradSGP4.o stdafx.o
+rm *.o
+
+
+
+
+- stdafx.h
+#include <tchar> をコメントアウト
+
+- main.cpp
+#include "Tle.h"
+==> #include "TLE.h"
+
+
+最後にリンク
+g++ -o main main.o liboborbit.a libobcore.a
+./main
+
+g++ -c main.cpp
+g++ -o main main.o liboborbit.a libobcore.a
+rm *.o
+
+./main
+
+
+
+
+
+
