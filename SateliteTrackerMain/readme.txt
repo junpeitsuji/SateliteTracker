@@ -6,7 +6,7 @@ cp ../orbitTools/lib* .
 
 # type below command to build and link execute file.
 g++ -c main.cpp
-g++ -o main main.o liboborbit.a libobcore.a
+g++ -o main main.o liborbit.a libcore.a
 rm *.o
 
 # execute program.

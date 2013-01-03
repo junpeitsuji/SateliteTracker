@@ -240,6 +240,7 @@ time_t cJulian::ToTime() const
 
       //_get_timezone(&fromLocal);
       //tEpoch -= fromLocal;
+      tEpoch += 9*60*60;
    }
 
    return tEpoch;

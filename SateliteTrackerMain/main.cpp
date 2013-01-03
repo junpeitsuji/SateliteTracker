@@ -134,10 +134,13 @@ void PrintOrbitsJSON(const cTle &tle, const double interval_minutes = 1.0, const
 		std::cout << "\"," << std::endl;
 	}
 
+
 	std::cout << "\"intervalMinutes\" : \""<< interval_minutes << "\"," << std::endl;
 	std::cout << "\"dataNum\" : \""<<  terminal_minutes / interval_minutes << "\"," << std::endl;
 	std::cout << "\"tleLine1\" : \""+tle.Line1()+"\"," << std::endl;
 	std::cout << "\"tleLine2\" : \""+tle.Line2()+"\"," << std::endl;
+	std::cout << "\"algorithm\" : \""<< "SGP4" <<"\"," << std::endl;
+	std::cout << "\"library\" : \""<< "OrbitTools (http://www.zeptomoby.com/satellites/)" <<"\"," << std::endl;
 
 	std::cout << "\"orbits\" : [" << std::endl; 
 
@@ -197,7 +200,7 @@ int main(int argc, char* argv[])
 
 	case JSON_TEXT:
 		// Print Orbits data (JSON)
-		PrintOrbitsJSON(tle, 0.2, 0.0, 1440.0);
+		PrintOrbitsJSON(tle, 0.2, 0.0, 60.0);
 		break;
 	}
 
