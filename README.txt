@@ -1,3 +1,14 @@
+SateliteTracker
+===============
+
+A project for Web API to predict a satelite orbit using C++ Library (OrbitTools).
+
+Plan, Description: http://tsujimotter.info/2013/01/02/iss-api/
+
+Web API example (JSONP script): http://tsujimotter.info/iss/orbitjsonp.cgi?callback=jsonp 
+
+Created by Junpei Tsuji (@tsujimotter, tsuji@complex.ist.hokudai.ac.jp), 2013/1/1
+
 * ISS 軌跡情報API (2013/1/4 現在)
 
 
@@ -7,18 +18,18 @@ JSONP: http://tsujimotter.info/iss/orbitjsonp.cgi
 
 - リクエストパラメータ (未実装含む) (Request Query Parameters)
 
- パラメータ 		| 値 		| 説明
+ パラメータ 	| 値 		| 説明
  (parameters)	| (value)	| (description)
 -------------------------------------------------------------------------------------------
-+ appid			| string	| アプリケーションID (未実装)
++ appid		| string	| アプリケーションID (未実装)
 (+ callback)	| string	| JSONPとして出力する際のコールバック関数名を入力するためのパラメータ。
-				|			| UTF-8でエンコードされた文字列を入力する。
-(+ offset) 		| double 	| 現在時刻からどれだけの時間後方にずらしたデータを取得するか指定するパラメータ。
-				|			| (単位: minites) (未実装)
+		|		| UTF-8でエンコードされた文字列を入力する。
+(+ offset) 	| double 	| 現在時刻からどれだけの時間後方にずらしたデータを取得するか指定するパラメータ。
+		|		| (単位: minites) (未実装)
 (+ termination)	| double	| データ開始時刻からどれだけの時間後方までのデータを取得するか指定するパラメータ。
-				|			| (単位: minites) (未実装)
+		|		| (単位: minites) (未実装)
 (+ intervals)	| double 	| データの取得間隔 (単位: mitutes) (未実装)
-(+ method)		| string	| 軌道データの予測方式 ("SGP4", "SDP4") (未実装)
+(+ method)	| string	| 軌道データの予測方式 ("SGP4", "SDP4") (未実装)
 -------------------------------------------------------------------------------------------
 
 実行例  (example of a request query. ):
@@ -27,22 +38,22 @@ http://tsujimotter.info/iss/orbitjsonp.cgi?callback=jsonp&appid=XXXXXXXXXXXXXXX&
 
 - レスポンスフィールド (未実装含む) (Response JSONP fields)
 
- フィールド	 (fields)		| 説明 (description)
+ フィールド	 (fields)	| 説明 (description)
 ---------------------------------------------------------------------------------------------
 + sateliteName			| 衛星名 (ISSの場合: "GOSAT (ISS)")
 + currentDate   		| APIアクセス時の日付・時刻 ("YYYY-MM-DD HH:mm:ss")
 + intervalMinutes		| 軌道データの取得間隔 (単位: minutes)
-+ dataNum				| 総軌道データ数
-+ tleLine1				| 予測の基となったTLE (2行軌道要素形式)　の 1行目
-+ tleLine2				| 予測の基となったTLE (2行軌道要素形式)　の 2行目
-+ algorithm				| 軌道データの予測方式 ("SGP4", "SDP4")
-+ library				| 計算に用いた C++ のライブラリ (OrbitTools "http://www.zeptomoby.com/satellites/")
-+ orbits 				| 軌道データの配列. 下記3項目からなる. 配列のデータ数は dataNum フィールドに一致
++ dataNum			| 総軌道データ数
++ tleLine1			| 予測の基となったTLE (2行軌道要素形式)　の 1行目
++ tleLine2			| 予測の基となったTLE (2行軌道要素形式)　の 2行目
++ algorithm			| 軌道データの予測方式 ("SGP4", "SDP4")
++ library			| 計算に用いた C++ のライブラリ (OrbitTools "http://www.zeptomoby.com/satellites/")
++ orbits 			| 軌道データの配列. 下記3項目からなる. 配列のデータ数は dataNum フィールドに一致
 + orbits[i].date		| 軌道データの予測時刻 ("YYYY-MM-DD HH:mm:ss")
-+ orbits[i].latitude	| 軌道予測の座標 
-						| (緯度. 単位: degree [-90.0<x<90.0] 値が正のとき 北緯, 負のとき 南緯. )
-+ orbits[i].longitude	| 軌道予測の座標 
-						| (経度. 単位: degree [0<x<360.0] 値が 180.0 より小さい時 西経, 180.0 より大きい時 東経. )
++ orbits[i].latitude		| 軌道予測の座標 
+				| (緯度. 単位: degree [-90.0<x<90.0] 値が正のとき 北緯, 負のとき 南緯. )
++ orbits[i].longitude		| 軌道予測の座標 
+				| (経度. 単位: degree [0<x<360.0] 値が 180.0 より小さい時 西経, 180.0 より大きい時 東経. )
 ---------------------------------------------------------------------------------------------
 
 
@@ -71,3 +82,4 @@ jsonp({
 		{"date" : "2013-01-03 23:56:59", "latitude" : "-40.657829", "longitude" : "100.721634" },
 		{"date" : "2013-01-03 23:57:11", "latitude" : "-41.102521", "longitude" : "101.507043" }]
 })
+
