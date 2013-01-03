@@ -4,6 +4,20 @@
 
 using namespace std;
 
+/**
+ * Parser HTTP GET query strings 
+ * 
+ * e.g. 
+ * input = "test1=12345&test2=56789"
+ * output = {
+ *    "test1" => "12345",
+ *    "test2" => "56789"
+ * }
+ * 
+ * @args   query  - query string. 
+ * @return result - Hash map key and values.
+ * 
+ */ 
 map<string, string> query_parser(const string &query)
 {
 	string str = query;
@@ -46,7 +60,6 @@ map<string, string> query_parser(const string &query)
 int main(void)
 {
 	std::string query = "test1=12345&test2=56789";
-	//std::string query = "";
 
 	std::map<std::string, std::string> values = query_parser(query);
 
