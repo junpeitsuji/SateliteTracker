@@ -5,8 +5,8 @@
 cp ../orbitTools/lib* .
 
 # type below command to build and link execute file.
-g++ -c main.cpp
-g++ -o main main.o liborbit.a libcore.a
+g++ -c query_parser.cpp main.cpp
+g++ -o main main.o query_parser.o liborbit.a libcore.a
 rm *.o
 
 # execute program.

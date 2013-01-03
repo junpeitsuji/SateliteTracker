@@ -17,6 +17,9 @@
 
 #include "time.h"
 
+#include "query_parser.h"
+
+
 // 
 // This namespace contains all the OrbitTools classes; be sure
 // to include this namespace.
@@ -41,7 +44,7 @@ void TimeToStr(const time_t &time, char *str)
 {
 	struct tm *date;
 	date = localtime(&time); 
-	strftime(str, 255, "%Y-%m-%d %I:%M:%S", date);
+	strftime(str, 255, "%Y-%m-%d %H:%M:%S", date);
 }
 
 
@@ -95,9 +98,9 @@ void PrintOrbitsPlaneText(const cTle &tle, const double interval_minutes = 1.0, 
 
 
 
-void PrintOrbitsJSON(const cTle &tle, const double interval_minutes = 1.0, const double start_minutes = 0.0, const double terminal_minutes = 1440.0)
+void PrintOrbitsJSON(const cTle &tle, map<string, string> query, const double interval_minutes = 1.0, const double start_minutes = 0.0, const double terminal_minutes = 1440.0)
 {
-	printf("content-type: application/javascript\n");
+	printf("content-type: application/javascript; charset=UTF-8\n");
 	printf("\n");    
 
 	// get cTLE parameters field
@@ -123,7 +126,14 @@ void PrintOrbitsJSON(const cTle &tle, const double interval_minutes = 1.0, const
 
 	// Calculate orbit data 
 	// FROM current time TO current time + 1440 [min]
-	std::cout << "callback({" << std::endl;
+	if( query["callback"].length() > 0 )
+	{
+		std::cout << query["callback"] << "({" << std::endl;
+	}
+	else
+	{
+		std::cout << "jsonp" << "({" << std::endl;
+	}
 
 	std::cout << "\"sateliteName\" : \""<< tle.Name() <<"\"," << std::endl;
 	{
@@ -167,7 +177,7 @@ void PrintOrbitsJSON(const cTle &tle, const double interval_minutes = 1.0, const
 		printf("\n");
 	}
 	printf("]\n");
-	printf("});\n");
+	printf("})\n");
 }
 
 
@@ -177,6 +187,17 @@ int main(int argc, char* argv[])
 	// flag variables
 	const int JSON_TEXT  = 1;
 	const int PLANE_TEXT = 2; 
+
+
+	std::string request_method = getenv( "REQUEST_METHOD" );  
+	std::map<string, string> query;
+
+ 	//if ( request_method == "GET" )  
+ 	{
+ 		std::string query_string;    
+ 		query_string = getenv( "QUERY_STRING" );  
+ 		query = query_parser(query_string);
+ 	}
 
 	// set flag
 	int flag = JSON_TEXT;
@@ -200,7 +221,7 @@ int main(int argc, char* argv[])
 
 	case JSON_TEXT:
 		// Print Orbits data (JSON)
-		PrintOrbitsJSON(tle, 0.2, 0.0, 60.0);
+		PrintOrbitsJSON(tle, query, 0.2, 0.0, 60.0);
 		break;
 	}
 
