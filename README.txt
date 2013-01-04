@@ -15,7 +15,7 @@ Created by Junpei Tsuji (@tsujimotter, tsuji@complex.ist.hokudai.ac.jp), 2013/1/
 
 
 * リクエストURL (Request URL)
-JSONP: http://tsujimotter.info/iss/orbitjsonp.cgi
+JSONP: http://tsujimotter.info/api/SateliteTracker/orbitjsonp.cgi
 
 
 
@@ -31,7 +31,7 @@ JSONP: http://tsujimotter.info/iss/orbitjsonp.cgi
  + tleid	| string	| 計算の入力に使われるTLEのIDを
 		|		| 入力するためのパラメータ。
 		|		| UTF-8でエンコードされた文字列を入力する。
-		|		| http://tsujimotter.info/iss/tle/iss20130102.tle
+		|		| http://tsujimotter.info/api/SateliteTracker/tle/iss20130102.tle
 		|		| を入力する場合 "tleid=iss20130102" とする。
 		|		| デフォルトは "tleid=iss"
 (+ offset) 	| double 	| 現在時刻からどれだけの時間後方にずらした
