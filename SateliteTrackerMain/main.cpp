@@ -129,13 +129,14 @@ void PrintOrbitsJSON(const cTle &tle, map<string, string> query, const double in
 	// FROM current time TO current time + 1440 [min]
 	if( query["callback"].length() > 0 )
 	{
-		std::cout << query["callback"] << "({" << std::endl;
+		std::cout << query["callback"] << "(";
 	}
 	else
 	{
-		std::cout << "jsonp" << "({" << std::endl;
+		std::cout << "jsonp" << "(";
 	}
 
+	std::cout << "{" << std::endl;
 	std::cout << "\"sateliteName\" : \""<< tle.Name() <<"\"," << std::endl;
 	{
 		char str[256];
@@ -165,19 +166,22 @@ void PrintOrbitsJSON(const cTle &tle, map<string, string> query, const double in
 		char str[256];
 		TimeToStr(result_time, str);
 
-		printf("{\"date\" : \"%s\", \"latitude\" : \"%.6f\", \"longitude\" : \"%.6f\" }", 
+		printf("{\"date\" : \"%s\", \"latitude\" : \"%.6f\", \"longitude\" : \"%.6f\", \"altitude\" : \"%.6f\" }", 
 			str,
 			geo.LatitudeDeg(),
-			geo.LongitudeDeg()
+			geo.LongitudeDeg(),
+			geo.AltitudeKm()
 			);
 
 		if(d+interval_minutes < terminal_minutes)
 			printf(",");
+		else
+			printf("]");
 
 
 		printf("\n");
 	}
-	printf("]\n");
+	//printf("]\n");
 	printf("})\n");
 }
 
@@ -251,7 +255,6 @@ int main(int argc, char* argv[])
 
 		ifs.close();
 	}
-
 
 
 // /*
