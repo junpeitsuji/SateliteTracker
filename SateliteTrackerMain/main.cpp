@@ -233,6 +233,7 @@ int main(int argc, char* argv[])
 		if(ifs && getline(ifs, line)) { tle_line_1    = line; }
 		if(ifs && getline(ifs, line)) { tle_line_2    = line; }
 
+		ifs.close();
 	}
 	else
 	{
@@ -248,6 +249,7 @@ int main(int argc, char* argv[])
 		if(ifs && getline(ifs, line)) { tle_line_1    = line; }
 		if(ifs && getline(ifs, line)) { tle_line_2    = line; }
 
+		ifs.close();
 	}
 
 

@@ -5,7 +5,7 @@ A project for Web API to predict a satelite orbit using C++ Library (OrbitTools)
 
 Plan, Description: http://tsujimotter.info/2013/01/02/iss-api/
 
-Web API example (JSONP script): http://tsujimotter.info/iss/orbitjsonp.cgi?callback=jsonp 
+Web API example (JSONP script): http://tsujimotter.info/api/SateliteTracker/orbitjsonp.cgi?callback=jsonp 
 
 Created by Junpei Tsuji (@tsujimotter, tsuji@complex.ist.hokudai.ac.jp), 2013/1/1
 
@@ -45,7 +45,7 @@ JSONP: http://tsujimotter.info/iss/orbitjsonp.cgi
 -------------------------------------------------------------------------------------------
 
 実行例  (example of a request query. ):
-http://tsujimotter.info/iss/orbitjsonp.cgi?callback=jsonp&appid=XXXXXXXXXXXXXXX&offset=120.0&intervals=0.2
+http://tsujimotter.info/api/SateliteTracker/orbitjsonp.cgi?callback=jsonp&appid=XXXXXXXXXXXXXXX&offset=120.0&intervals=0.2
 
 
 
