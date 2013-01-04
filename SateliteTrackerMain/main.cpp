@@ -7,7 +7,8 @@
 //
 #include "stdafx.h"
 
-#include "iostream"
+#include <iostream>
+#include <fstream>
 
 #include <stdio.h>
 #include "cTLE.h"
@@ -189,14 +190,22 @@ int main(int argc, char* argv[])
 	const int PLANE_TEXT = 2; 
 
 
-	std::string request_method = getenv( "REQUEST_METHOD" );  
+	std::string request_method;
+	if( getenv( "REQUEST_METHOD" ) != NULL ){ 
+		request_method = getenv( "REQUEST_METHOD" );  
+	}
+
+
 	std::map<string, string> query;
 
- 	//if ( request_method == "GET" )  
+
+ 	if ( request_method == "GET" )  
  	{
  		std::string query_string;    
- 		query_string = getenv( "QUERY_STRING" );  
- 		query = query_parser(query_string);
+ 		if( getenv( "QUERY_STRING" ) != NULL ){ 			
+	 		query_string = getenv( "QUERY_STRING" );  
+	 		query = query_parser(query_string);
+ 		}
  	}
 
 	// set flag
@@ -209,6 +218,41 @@ int main(int argc, char* argv[])
 	string tle_line_2    = "2 25544  51.6441 216.2888 0015668 109.9671 250.3170 15.51850049  8742";
 
 
+	if( query["tleid"].length() > 0 )
+	{
+		std::string filename = "tle/"+query["tleid"]+".tle";
+		ifstream ifs(filename.c_str());
+		string line;
+
+		if(ifs.fail()) {
+			std::cerr << "Error: TLE File do not exist.\n";
+			exit(0);
+		}
+		
+		if(ifs && getline(ifs, line)) { satelite_name = line; }
+		if(ifs && getline(ifs, line)) { tle_line_1    = line; }
+		if(ifs && getline(ifs, line)) { tle_line_2    = line; }
+
+	}
+	else
+	{
+		ifstream ifs("tle/iss.tle");
+		string line;
+
+		if(ifs.fail()) {
+			std::cerr << "Error: TLE File do not exist.\n";
+			exit(0);
+		}
+		
+		if(ifs && getline(ifs, line)) { satelite_name = line; }
+		if(ifs && getline(ifs, line)) { tle_line_1    = line; }
+		if(ifs && getline(ifs, line)) { tle_line_2    = line; }
+
+	}
+
+
+
+// /*
 	// Create TLE data
 	cTle tle(satelite_name, tle_line_1, tle_line_2);
 
@@ -224,7 +268,7 @@ int main(int argc, char* argv[])
 		PrintOrbitsJSON(tle, query, 0.2, 0.0, 60.0);
 		break;
 	}
-
+// */
 }
 
 

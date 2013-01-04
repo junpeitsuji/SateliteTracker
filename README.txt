@@ -28,6 +28,12 @@ JSONP: http://tsujimotter.info/iss/orbitjsonp.cgi
  + callback	| string	| JSONPとして出力する際のコールバック関数名を
 		|		| 入力するためのパラメータ。
 		|		| UTF-8でエンコードされた文字列を入力する。
+ + tleid	| string	| 計算の入力に使われるTLEのIDを
+		|		| 入力するためのパラメータ。
+		|		| UTF-8でエンコードされた文字列を入力する。
+		|		| http://tsujimotter.info/iss/tle/iss20130102.tle
+		|		| を入力する場合 "tleid=iss20130102" とする。
+		|		| デフォルトは "tleid=iss"
 (+ offset) 	| double 	| 現在時刻からどれだけの時間後方にずらした
 		| 		| データを取得するか指定するパラメータ。
 		|		| (単位: minites) (未実装)
