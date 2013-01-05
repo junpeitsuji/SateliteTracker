@@ -1,7 +1,11 @@
 SateliteTracker
 ===============
 
-A project for Web API to predict a satelite orbit using C++ Library (OrbitTools).
+A project for Web API to predict a satelite orbit.
+	RESOURCE USAGE: 
+		The OrbitTools Libraries 
+		URL: http://www.zeptomoby.com/satellites/
+		LICENSE: "free of charge for non-commercial applications only")
 
 Plan, Description: http://tsujimotter.info/2013/01/02/iss-api/
 
